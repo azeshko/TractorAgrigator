@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+
+    <fragment
+        android:id="@+id/navigation_agrigation"
+        android:name="zhe.internet.tractoragrigator.fragments.AgrigationFragment"
+        android:label="@string/title_agrigation"
+        tools:layout="@layout/fragment_agrigation" />
+
+    <fragment
+        android:id="@+id/navigation_about"
+        android:name="zhe.internet.tractoragrigator.fragments.AboutFragment"
+        android:label="@string/title_about"
+        tools:layout="@layout/fragment_about" />
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="zhe.internet.tractoragrigator.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+</navigation>
