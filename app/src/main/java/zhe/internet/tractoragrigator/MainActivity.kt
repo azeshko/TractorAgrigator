@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -14,7 +16,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-
+import zhe.internet.tractoragrigator.fragments.AboutFragment
+import zhe.internet.tractoragrigator.fragments.AgrigationFragment
+import zhe.internet.tractoragrigator.fragments.CatalogPresentationFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -22,67 +26,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        bottom navbar
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
-//        val navController = findNavController(R.id.nav_host_fragment)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        val navController = navHostFragment.navController
+          bottomNavigationView.setupWithNavController(navController)
+        val appBarConfig = AppBarConfiguration(setOf(R.id.catalogFragment, R.id.agrigationFragment, R.id.aboutFragment))
+        setupActionBarWithNavController(navController, appBarConfig)
 
-//        val appBarConfiguration = AppBarConfiguration(setOf(
-//            R.id.navigation_home, R.id.navigation_catalog))
-//        setupActionBarWithNavController(navController, appBarConfiguration)
-//        navView.setupWithNavController(navController)
-
-
-        val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.navigation_agrigation -> {
-                    Log.d("FFFFFFF", "asdfasdfasdfasdfas")
-                    return@OnNavigationItemSelectedListener true
-                }
-                R.id.navigation_about -> {
-                    Log.d("FFFFFFF", "111111111111111")
-                    return@OnNavigationItemSelectedListener true
-                }
-            }
-            false
-        }
-
-        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-
-
-        loadMaches()
     }
 
-
-    private fun loadMaches(){
-        //initiate the service
-        val destinationService = ServiceBuilder.buildService(MachineService::class.java)
-        val requestCall = destinationService.getAffectedMachinesList()
-        //make network call asynchronously
-
-
-        requestCall.enqueue(object : Callback<List<MyMachine>> {
-
-
-            override fun onResponse(call: Call<List<MyMachine>>, response: Response<List<MyMachine>>) {
-
-                if (response.isSuccessful){
-                    val machineList = response.body()!!
-                    Log.d("Response", "MachList size : ${machineList.size}")
-                    machine_recycler.apply {
-                        setHasFixedSize(true)
-                        layoutManager = GridLayoutManager(this@MainActivity,2)
-                        adapter = MachinesAdapter(response.body()!!)
-                    }
-                }else{
-                    Toast.makeText(this@MainActivity, "Something went wrong ${response.message()}", Toast.LENGTH_SHORT).show()
-
-                }
-            }
-            override fun onFailure(call: Call<List<MyMachine>>, t: Throwable) {
-
-                Toast.makeText(this@MainActivity, "Something went wrong $t", Toast.LENGTH_SHORT).show()
-
-            }
-        })
-    }
 }

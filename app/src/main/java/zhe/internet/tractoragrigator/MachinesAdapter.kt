@@ -47,9 +47,9 @@ class MachinesAdapter(private val machinesList: List<MyMachine>) :RecyclerView.A
                 val bundle = Bundle()
                 bundle.putSerializable("mach_item", item)
 
-                val demoFragment = CatalogPresentationFragment()
-                demoFragment.arguments = bundle
-                transaction.replace(R.id.rec, demoFragment).addToBackStack(null).commit()
+                val catalogPresentationFragment = CatalogPresentationFragment()
+                catalogPresentationFragment.arguments = bundle
+                transaction.replace(R.id.main_actv, catalogPresentationFragment).addToBackStack(null).commit()
 
             }
         })
@@ -62,11 +62,11 @@ class MachinesAdapter(private val machinesList: List<MyMachine>) :RecyclerView.A
 
         var imageView = itemView.findViewById<ImageView>(R.id.ivMachine)
         var tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
-//        var tvCases = itemView.findViewById<TextView>(R.id.tvCases)
+
         fun bind(machine: MyMachine) {
 
-//            tvCases.text = machine.mach_mark
-            tvTitle.text = machine.id_mach.toString()
+
+            tvTitle.text = machine.mach_mark
             Picasso.get().load(machine.picute_mach_link).into(imageView)
         }
 
@@ -74,11 +74,7 @@ class MachinesAdapter(private val machinesList: List<MyMachine>) :RecyclerView.A
 
 
 
-//    override fun passData(position: Int, im_name: kotlin.String, image: kotlin.String) {
-//        Log.d("zzzzzzzzzzzzzzzz", position.toString())
-//        val bundle = Bundle()
-//        bundle.putString("mach_name", im_name)
-//    }
+
 
 
 }
