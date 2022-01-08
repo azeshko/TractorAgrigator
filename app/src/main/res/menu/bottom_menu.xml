@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/ttl_catalog"
+        android:id="@+id/catalogFragment"
+        android:icon="@drawable/ic_catalog"/>
+
+    <item android:title="@string/ttl_agrigation"
+        android:id="@+id/agrigationFragment"
+        android:icon="@drawable/ic_agregation"/>
+
+    <item android:title="@string/ttl_about"
+        android:id="@+id/aboutFragment"
+        android:icon="@drawable/ic_about"/>
+</menu>
